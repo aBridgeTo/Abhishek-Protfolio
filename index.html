@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhishek Yadav Portfolio</title>
+<meta name="description" content="Abhishek Yadav, Flutter and mobile tech lead in Indore, India. 8+ years building Android, Flutter and full-stack web products.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: career told as an app's release notes. A phone in the hero shows the changelog; the page below expands each version. */
+:root{
+  --paper:#F2F4F6;
+  --surface:#FFFFFF;
+  --ink:#0F1B2D;
+  --muted:#56637A;
+  --rule:#D5DBE3;
+  --accent:#0B6BDE;
+  --accent-soft:#E2EDFB;
+  --phone:#0F1B2D;
+  --screen:#F8FAFC;
+  --font-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1420; --surface:#121D2C; --ink:#E7ECF3; --muted:#93A0B4; --rule:#24324A;
+    --accent:#5AA2FF; --accent-soft:#16294A; --phone:#000000; --screen:#121D2C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1420; --surface:#121D2C; --ink:#E7ECF3; --muted:#93A0B4; --rule:#24324A;
+  --accent:#5AA2FF; --accent-soft:#16294A; --phone:#000000; --screen:#121D2C;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.05}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--font-mono)}
+
+/* nav */
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;flex-wrap:wrap}
+.brand{font-family:var(--font-mono);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none}
+.brand b{color:var(--accent)}
+.navlinks{display:flex;gap:22px;flex-wrap:wrap}
+.navlinks a{color:var(--muted);text-decoration:none;font-size:15px}
+.navlinks a:hover{color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center;padding:40px 0 72px}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:13px;color:var(--muted);border:1px solid var(--rule);padding:6px 12px;border-radius:999px;background:var(--surface)}
+.dot{width:8px;height:8px;border-radius:50%;background:#1FA463;box-shadow:0 0 0 3px rgba(31,164,99,.18)}
+.hero h1{font-size:clamp(52px,8.5vw,112px);font-weight:800;letter-spacing:-.035em;margin:22px 0 20px}
+.hero h1 span{display:block;color:var(--accent)}
+.lede{font-size:clamp(19px,2.1vw,23px);color:var(--muted);max-width:34ch;margin:0 0 30px}
+.lede strong{color:var(--ink);font-weight:600}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:10px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.ghost{color:var(--ink);background:transparent}
+.btn:hover{transform:translateY(-1px)}
+
+/* phone */
+.phone{justify-self:center;width:290px;max-width:100%;aspect-ratio:9/18.5;background:var(--phone);border-radius:44px;padding:12px;box-shadow:0 30px 60px -25px rgba(15,27,45,.45)}
+.screen{height:100%;background:var(--screen);border-radius:34px;overflow:hidden;display:flex;flex-direction:column}
+.notch{height:26px;display:flex;justify-content:center;align-items:center}
+.notch i{width:84px;height:20px;background:var(--phone);border-radius:0 0 14px 14px;margin-top:-6px}
+.appbar{padding:8px 18px 12px;border-bottom:1px solid var(--rule)}
+.appbar small{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.appbar div{font-family:var(--font-display);font-weight:800;font-size:22px}
+.notes{list-style:none;margin:0;padding:6px 14px;display:flex;flex-direction:column;flex:1}
+.notes li{padding:11px 4px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:baseline;animation:rise .5s ease both}
+.notes li:nth-child(2){animation-delay:.12s}.notes li:nth-child(3){animation-delay:.24s}.notes li:nth-child(4){animation-delay:.36s}
+.tag{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:5px}
+.notes b{font-size:13.5px;font-weight:600;line-height:1.3}
+.notes span{grid-column:2;font-size:11.5px;color:var(--muted);line-height:1.35}
+.notes li.current .tag{background:var(--accent);color:#fff}
+.homebar{height:22px;display:flex;justify-content:center;align-items:center}
+.homebar i{width:96px;height:4px;border-radius:4px;background:var(--rule)}
+@keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+@media (prefers-reduced-motion: reduce){.notes li{animation:none}.btn:hover{transform:none}html{scroll-behavior:auto}}
+
+/* facts strip */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+.facts div{padding:22px 20px 22px 0}
+.facts div + div{padding-left:20px;border-left:1px solid var(--rule)}
+.facts strong{display:block;font-family:var(--font-display);font-size:34px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts small{color:var(--muted);font-size:14px}
+
+/* sections */
+section{padding:88px 0 0}
+.sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:36px;flex-wrap:wrap}
+.sechead .mono{font-size:13px;color:var(--accent)}
+.sechead h2{font-size:clamp(34px,4.5vw,52px);font-weight:800;letter-spacing:-.025em}
+
+/* what I do */
+.craft{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--rule)}
+.craft article{padding:28px 28px 30px 0;border-bottom:1px solid var(--rule)}
+.craft article:nth-child(even){padding-left:28px;border-left:1px solid var(--rule)}
+.craft h3{font-size:24px;font-weight:600;margin-bottom:10px}
+.craft p{margin:0 0 14px;color:var(--muted);max-width:46ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-family:var(--font-mono);font-size:12px;padding:4px 9px;border:1px solid var(--rule);border-radius:6px;color:var(--ink);background:var(--surface)}
+
+/* changelog */
+.log{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:30px 0;border-top:1px solid var(--rule)}
+.log li:last-child{border-bottom:1px solid var(--rule)}
+.ver{font-family:var(--font-mono)}
+.ver .v{font-size:28px;font-weight:600;color:var(--accent);display:block;line-height:1}
+.ver small{color:var(--muted);font-size:13px;display:block;margin-top:8px;font-variant-numeric:tabular-nums}
+.log h3{font-size:26px;font-weight:600;margin-bottom:4px}
+.log .co{color:var(--muted);margin:0 0 12px}
+.log ul{margin:0;padding-left:18px;max-width:64ch}
+.log ul li{display:list-item;padding:2px 0;border:0}
+.latest{font-family:var(--font-mono);font-size:11px;font-weight:600;background:var(--accent);color:#fff;padding:3px 8px;border-radius:5px;vertical-align:middle;margin-left:8px;letter-spacing:.04em}
+
+/* selected work */
+.work{display:flex;flex-direction:column;gap:20px}
+.case{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:18px;padding:22px}
+.thumb{height:200px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.t-visa{background:linear-gradient(160deg,#E2336B,#B5174F)}
+.t-runner{background:linear-gradient(160deg,#2E9B4F,#1D6E37)}
+.t-ocr{background:linear-gradient(160deg,#3B4A63,#1E2A3D)}
+.mini{width:96px;height:172px;background:#fff;border-radius:16px;border:4px solid #0F1B2D;padding:12px 9px;display:flex;flex-direction:column;gap:7px;align-items:center}
+.mini i{width:22px;height:22px;border-radius:50%;background:currentColor;margin-top:6px}
+.t-visa .mini{color:#E2336B}.t-runner .mini{color:#2E9B4F}
+.mini b{font-family:var(--font-display);font-size:10px;color:#0F1B2D;margin-bottom:4px}
+.mini span{width:100%;height:12px;border-radius:4px;background:#E7ECF2}
+.mini em{margin-top:auto;width:100%;font-style:normal;font-size:9px;font-weight:600;color:#fff;background:currentColor;border-radius:5px;padding:5px 0;text-align:center}
+.mini em{color:#fff}
+.t-visa .mini em{background:#E2336B}.t-runner .mini em{background:#2E9B4F}
+.doc{width:110px;height:146px;background:#fff;border-radius:6px;padding:18px 14px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+.doc span{height:7px;border-radius:3px;background:#D5DBE3}
+.doc span.short{width:60%}
+.doc i{position:absolute;left:0;right:0;top:52%;height:2px;background:#5AA2FF;box-shadow:0 0 12px 3px rgba(90,162,255,.6);animation:scan 2.6s ease-in-out infinite alternate}
+@keyframes scan{from{top:18%}to{top:82%}}
+.kicker{font-size:12px;color:var(--accent);margin:0 0 8px;letter-spacing:.02em}
+.case h3{font-size:clamp(24px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.case p:not(.kicker){color:var(--muted);margin:0 0 14px;max-width:62ch}
+@media (max-width:700px){.case{grid-template-columns:1fr;gap:20px}}
+@media (prefers-reduced-motion: reduce){.doc i{animation:none}}
+
+/* side projects */
+.side{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:28px}
+.panel .mono{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.panel h3{font-size:28px;font-weight:800;margin:10px 0 10px;letter-spacing:-.02em}
+.panel p{color:var(--muted);margin:0 0 18px}
+.panel a.link{font-weight:600;text-decoration:none}
+.panel a.link:hover{text-decoration:underline}
+
+/* education */
+.edu{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:26px 0}
+.edu h3{font-size:24px;font-weight:600}
+.edu p{margin:4px 0 0;color:var(--muted)}
+
+/* contact */
+.contact{margin:96px 0 0;background:var(--ink);color:var(--paper);border-radius:24px;padding:56px clamp(24px,5vw,64px);display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
+.contact h2{font-size:clamp(36px,5vw,60px);font-weight:800;letter-spacing:-.03em}
+.contact p{opacity:.78;margin:16px 0 0;max-width:40ch}
+.contact .lines{display:flex;flex-direction:column;gap:12px}
+.contact .lines a{color:var(--paper);text-decoration:none;font-size:18px;font-weight:600;padding:14px 18px;border:1px solid color-mix(in srgb, var(--paper) 28%, transparent);border-radius:12px;display:flex;justify-content:space-between;gap:12px;overflow-wrap:anywhere}
+.contact .lines a:hover{background:rgba(127,127,127,.15)}
+.contact .lines small{font-family:var(--font-mono);font-size:12px;opacity:.7;font-weight:400}
+
+footer{padding:36px 0 48px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;gap:44px}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .facts div:nth-child(3){padding-left:0;border-left:0}
+  .facts div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .craft{grid-template-columns:1fr}
+  .craft article,.craft article:nth-child(even){padding-left:0;border-left:0}
+  .side,.contact{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .log li{grid-template-columns:1fr;gap:10px}
+  .navlinks{gap:14px}
+  .contact{border-radius:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="#top">abhishek<b>.</b>yadav</a>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#changelog">Experience</a>
+      <a href="#beyond">Beyond work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div>
+      <span class="status"><span class="dot"></span>Open to senior Flutter &amp; tech lead roles</span>
+      <h1>Abhishek <span>Yadav</span></h1>
+      <p class="lede">I build <strong>mobile apps people use every day</strong>, and lead the teams that ship them. Flutter and Android first, with Angular and Node.js when the product needs a web side.</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="phone" aria-label="Career release notes shown on a phone screen">
+      <div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="appbar"><small>Release notes</small><div>abhishek.app</div></div>
+        <ul class="notes">
+          <li class="current"><em class="tag">v4.0</em><b>Senior Manager, Technology</b><span>VFS Global · 2024 – now</span></li>
+          <li><em class="tag">v3.0</em><b>Flutter Developer</b><span>Inwizards Software · 2021</span></li>
+          <li><em class="tag">v2.0</em><b>Android Developer</b><span>Recibo · 2021</span></li>
+          <li><em class="tag">v1.0</em><b>Android Developer</b><span>Pixel Marketo · 2019 · first release</span></li>
+        </ul>
+        <div class="homebar"><i></i></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="facts">
+    <div><strong>8+</strong><small>years shipping software</small></div>
+    <div><strong>4</strong><small>major releases of my career</small></div>
+    <div><strong>3</strong><small>platforms: Flutter, Android, web</small></div>
+    <div><strong>Indore</strong><small>India · open to remote</small></div>
+  </div>
+
+  <section id="craft">
+    <div class="sechead"><span class="mono">01</span><h2>What I do</h2></div>
+    <div class="craft">
+      <article>
+        <h3>Cross-platform apps in Flutter</h3>
+        <p>One Dart codebase for Android and iOS, from the first screen to the store listing, with clean architecture and tests that keep releases calm.</p>
+        <div class="chips"><span>Flutter</span><span>Dart</span><span>State management</span><span>Unit testing</span></div>
+      </article>
+      <article>
+        <h3>Native Android, down to C++</h3>
+        <p>Java-based Android apps, and C++ through the Android NDK when graphics or image processing need native speed.</p>
+        <div class="chips"><span>Android</span><span>Java</span><span>C++ / NDK</span><span>Image processing</span></div>
+      </article>
+      <article>
+        <h3>Full-stack web</h3>
+        <p>Angular front ends and Node.js services, connected to the same REST APIs the mobile apps use, so web and mobile stay in step.</p>
+        <div class="chips"><span>Angular</span><span>Node.js</span><span>REST APIs</span><span>SQL</span></div>
+      </article>
+      <article>
+        <h3>Technical leadership</h3>
+        <p>Setting architecture, reviewing code, planning delivery and growing engineers, so a team ships end-to-end systems with confidence.</p>
+        <div class="chips"><span>Architecture</span><span>Code review</span><span>Delivery</span><span>Mentoring</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sechead"><span class="mono">02</span><h2>Selected work</h2></div>
+    <div class="work">
+      <article class="case">
+        <div class="thumb t-visa" aria-hidden="true"><div class="mini"><i></i><b>Visa made easy</b><span></span><span></span><em>Apply now</em></div></div>
+        <div class="case-body">
+          <p class="kicker mono">VFS Global · Android &amp; iOS · Flutter</p>
+          <h3>OneVasco: visa application app</h3>
+          <p>I built the complete OneVasco mobile app end-to-end for Android and iOS while at VFS Global. It takes applicants through their visa application from their phone, from one Flutter codebase.</p>
+          <div class="chips"><span>Flutter</span><span>Dart</span><span>Android</span><span>iOS</span></div>
+        </div>
+      </article>
+      <article class="case">
+        <div class="thumb t-runner" aria-hidden="true"><div class="mini"><i></i><b>Welcome back</b><span></span><span></span><em>Sign in</em></div></div>
+        <div class="case-body">
+          <p class="kicker mono">VFS Global · Android &amp; iOS · Flutter</p>
+          <h3>OneVasco Runner: Support, field agent app</h3>
+          <p>A companion app for the field agents behind OneVasco. I built it end-to-end for Android and iOS, giving agents a mobile tool for the support work they do on the ground.</p>
+          <div class="chips"><span>Flutter</span><span>Dart</span><span>Android</span><span>iOS</span></div>
+        </div>
+      </article>
+      <article class="case">
+        <div class="thumb t-ocr" aria-hidden="true"><div class="doc"><span></span><span></span><span></span><span class="short"></span><i></i></div></div>
+        <div class="case-body">
+          <p class="kicker mono">Dexbytes · Contract lifecycle management</p>
+          <h3>OCR document scanning module</h3>
+          <p>An OCR module for Dexbytes' Contract Lifecycle Management (CLM) software. It scans contract documents and converts them into data the platform can process.</p>
+          <div class="chips"><span>OCR</span><span>Document conversion</span><span>Data processing</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="changelog">
+    <div class="sechead"><span class="mono">03</span><h2>Changelog</h2></div>
+    <ol class="log" reversed>
+      <li>
+        <div class="ver"><span class="v">v4.0</span><small>Sep 2024 – present</small></div>
+        <div>
+          <h3>Senior Manager, Technology <span class="latest">LATEST</span></h3>
+          <p class="co">VFS Global · Indore</p>
+          <ul>
+            <li>Lead technology delivery across mobile and web products.</li>
+            <li>Own architecture decisions, code quality and engineering practices.</li>
+            <li>Guide and grow the engineers on the team.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="ver"><span class="v">v3.0</span><small>Oct 2021 – Aug 2024</small></div>
+        <div>
+          <h3>Flutter Developer</h3>
+          <p class="co">Inwizards Software Technology Pvt. Ltd.</p>
+          <ul>
+            <li>Built cross-platform Flutter apps for clients, from first screen to store release.</li>
+            <li>Integrated REST APIs and JSON data layers, with unit tests on core logic.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="ver"><span class="v">v2.0</span><small>Mar 2021 – Oct 2021</small></div>
+        <div>
+          <h3>Android Developer</h3>
+          <p class="co">Recibo</p>
+          <ul>
+            <li>Developed native Android features and API integrations.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="ver"><span class="v">v1.0</span><small>Mar 2019 – Mar 2021</small></div>
+        <div>
+          <h3>Android Developer</h3>
+          <p class="co">Pixel Marketo Technologies</p>
+          <ul>
+            <li>Built Android apps in Java, including C++ modules through the Android NDK.</li>
+            <li>Worked on graphics and image-processing features.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="beyond">
+    <div class="sechead"><span class="mono">04</span><h2>Beyond work</h2></div>
+    <div class="side">
+      <div class="panel">
+        <span class="mono">YouTube channel</span>
+        <h3>Dev Radar</h3>
+        <p>A weekly tech-news roundup and Shorts for developers who want to stay ahead of what's changing in the industry.</p>
+        <a class="link" href="https://www.youtube.com/@dev_radar">Watch on YouTube →</a>
+      </div>
+      <div class="panel">
+        <span class="mono">Freelance</span>
+        <h3>Available for projects</h3>
+        <p>Native Android and iOS, hybrid apps in Flutter or React Native, and full-stack web with Angular and Node.js.</p>
+        <a class="link" href="#contact">Start a conversation →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sechead"><span class="mono">05</span><h2>Education</h2></div>
+    <div class="edu">
+      <div>
+        <h3>Bachelor of Computer Applications</h3>
+        <p>Shri RGP Gujarati Professional Institute, Devi Ahilya Vishwavidyalaya, Indore</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact" id="contact">
+    <div>
+      <h2>Let's build something.</h2>
+      <p>I'm open to senior Flutter and tech lead roles, remote or in Indore, and to freelance mobile and web projects.</p>
+    </div>
+    <div class="lines">
+      <a href="mailto:yabhishek198@gmail.com">yabhishek198@gmail.com <small>Email</small></a>
+      <a href="https://www.youtube.com/@dev_radar">@dev_radar <small>YouTube</small></a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Abhishek Yadav</span>
+    <span class="mono">built with care in Indore</span>
+  </footer>
+</div>
+</body>
+</html>
